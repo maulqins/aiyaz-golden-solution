@@ -39,7 +39,7 @@ const HeroSection = () => {
           </span>
         </motion.h1>
 
-        {/* Subheadline Bahasa Indonesia */}
+        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,7 +64,7 @@ const HeroSection = () => {
             }
             className="px-8 py-3 rounded-lg font-semibold bg-gradient-to-r from-yellow-500 to-yellow-400 text-black hover:opacity-90 transition-all shadow-lg shadow-yellow-500/20"
           >
-            Request a Consultation
+            Konsultasi Sekarang
           </button>
 
           <button
@@ -75,19 +75,20 @@ const HeroSection = () => {
             }
             className="px-8 py-3 rounded-lg font-semibold border border-purple-500/50 text-purple-300 hover:bg-purple-500/10 transition-all"
           >
-            Explore Our Approach
+            Pelajari Pendekatan Kami
           </button>
         </motion.div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <ArrowDown className="text-gray-500" size={22} />
-      </motion.div>
+      <div className="absolute bottom-8 inset-x-0 flex justify-center">
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <ArrowDown className="text-gray-500" size={22} />
+        </motion.div>
+      </div>
     </section>
   );
 };
