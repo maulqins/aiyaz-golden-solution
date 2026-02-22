@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard Admin Chat</title>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+
+/* ================= BACKGROUND ================= */
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  height:100vh;
+  display:flex;
+  color:white;
+  overflow:hidden;
+  background:linear-gradient(180deg,#05010a,#120a2a,#000);
+}
+
+.stars{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:200%;
+  background:url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity:.35;
+  animation:starsMove 120s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+
+@keyframes starsMove{
+  from{transform:translateY(0);}
+  to{transform:translateY(-2000px);}
+}
+
+/* ================= LAYOUT ================= */
+.sidebar{
+  width:280px;
+  border-right:1px solid #312e81;
+  background:rgba(0,0,0,.5);
+  backdrop-filter:blur(8px);
+  overflow-y:auto;
+  z-index:1;
+}
+
+.chat-area{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  z-index:1;
+}
+
+/* ================= SIDEBAR ================= */
+.contact{
+  padding:14px;
+  border-bottom:1px solid #1f1b4b;
+  cursor:pointer;
+}
+
+.contact:hover{
+  background:rgba(109,40,217,.3);
+}
+
+.email{
+  font-weight:bold;
+  font-size:14px;
+}
+
+.last-msg{
+  font-size:12px;
+  opacity:.7;
+}
+
+/* ================= CHAT ================= */
+.chat-box{
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+}
+
+.row{
+  display:flex;
+  margin-bottom:12px;
+}
+
+.client{justify-content:flex-start;}
+.admin{justify-content:flex-end;}
+
+.bubble{
+  padding:10px 14px;
+  border-radius:14px;
+  max-width:65%;
+}
+
+.bubble.client{background:#111827;}
+
+.bubble.admin{
+  background:linear-gradient(135deg,#6d28d9,#d4af37);
+}
+
+/* ================= INPUT ================= */
+.input-area{
+  display:flex;
+  padding:14px;
+  border-top:1px solid #312e81;
+  background:rgba(0,0,0,.6);
+}
+
+textarea{
+  flex:1;
+  resize:none;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #6d28d9;
+  background:#020617;
+  color:white;
+}
+
+button{
+  margin-left:10px;
+  padding:10px 18px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  background:linear-gradient(135deg,#6d28d9,#d4af37);
+  color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="contactList"></div>
+
+<!-- CHAT AREA -->
+<div class="chat-area">
+
+  <div class="chat-box" id="chatBox">
+    <h3>Pilih chat di kiri</h3>
+  </div>
+
+  <div class="input-area">
+    <textarea id="replyInput"
+      placeholder="Tulis balasan..."></textarea>
+    <button onclick="sendReply()">Kirim</button>
+  </div>
+
+</div>
+
+<script>
+
+/* ================= SUPABASE ================= */
+
+const supabaseUrl="https://yqrllzkoheyixauxuhia.supabase.co";
+const supabaseKey="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlxcmxsemtvaGV5aXhhdXh1aGlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA4NjEyMDksImV4cCI6MjA4NjQzNzIwOX0.Hve-QdCXoSizmd9mwZZZtSt1BkQYQmf5SHohJ5vCgx0"; 
+
+const supabaseClient=
+supabase.createClient(
+  supabaseUrl,
+  supabaseKey
+);
+
+let selectedEmail=null;
+
+/* ================= LOAD CONTACT ================= */
+async function loadContacts(){
+
+const {data,error}=await supabaseClient
+.from("contact")
+.select("*")
+.order("id",{ascending:false});
+
+if(error){
+console.error(error);
+return;
+}
+
+const grouped={};
+
+data.forEach(msg=>{
+if(!grouped[msg.email])
+grouped[msg.email]=msg;
+});
+
+const list=document.getElementById("contactList");
+list.innerHTML="";
+
+Object.values(grouped)
+.forEach(msg=>{
+
+const div=document.createElement("div");
+div.className="contact";
+
+div.innerHTML=
+`<div class='email'>${msg.email}</div>
+ <div class='last-msg'>
+   ${msg.reply ?? msg.message ?? ""}
+ </div>`;
+
+div.onclick=()=>{
+selectedEmail=msg.email;
+loadChat();
+};
+
+list.appendChild(div);
+
+});
+}
+
+/* ================= LOAD CHAT ================= */
+async function loadChat(){
+
+if(!selectedEmail) return;
+
+const {data,error}=await supabaseClient
+.from("contact")
+.select("*")
+.eq("email",selectedEmail)
+.order("id",{ascending:true});
+
+if(error){
+console.error(error);
+return;
+}
+
+const box=document.getElementById("chatBox");
+box.innerHTML="";
+
+data.forEach(msg=>{
+
+/* CLIENT */
+if(msg.message){
+box.innerHTML+=
+`<div class="row client">
+   <div class="bubble client">
+     ${msg.message}
+   </div>
+ </div>`;
+}
+
+/* ADMIN */
+if(msg.reply){
+box.innerHTML+=
+`<div class="row admin">
+   <div class="bubble admin">
+     ${msg.reply}
+   </div>
+ </div>`;
+}
+
+});
+
+/* scroll bawah */
+setTimeout(()=>{
+box.scrollTop=box.scrollHeight;
+},100);
+
+}
+
+/* ================= SEND REPLY FINAL FIX ================= */
+async function sendReply(){
+
+  const input=document.getElementById("replyInput");
+  const text=input.value.trim();
+  
+  if(!text||!selectedEmail) return;
+  
+  const {data: lastMsg}=await supabaseClient
+  .from("contact")
+  .select("name")
+  .eq("email",selectedEmail)
+  .order("id",{ascending:false})
+  .limit(1)
+  .single();
+  
+  const {error}=await supabaseClient
+  .from("contact")
+  .insert([
+  {
+  name:lastMsg?.name || "Admin",
+  email:selectedEmail,
+  reply:text
+  }
+  ]);
+  
+  if(error){
+  console.error(error);
+  alert("Gagal kirim reply:\n"+error.message);
+  return;
+  }
+  
+  input.value="";
+  
+  /* reload */
+  loadChat();
+  loadContacts();
+  
+  }
+  
+/* ================= REALTIME ================= */
+supabaseClient
+.channel("admin-realtime")
+.on(
+"postgres_changes",
+{
+event:"*",
+schema:"public",
+table:"contact"
+},
+()=>{
+loadContacts();
+loadChat();
+}
+)
+.subscribe();
+
+/* INIT */
+loadContacts();
+
+</script>
+
+</body>
+</html>

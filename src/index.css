@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 264 45% 6%;
+    --foreground: 60 10% 92%;
+
+    --card: 264 40% 10%;
+    --card-foreground: 60 10% 92%;
+
+    --popover: 264 40% 10%;
+    --popover-foreground: 60 10% 92%;
+
+    --primary: 270 70% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 264 30% 16%;
+    --secondary-foreground: 60 10% 92%;
+
+    --muted: 264 25% 14%;
+    --muted-foreground: 264 10% 55%;
+
+    --accent: 45 95% 55%;
+    --accent-foreground: 264 45% 6%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 264 25% 18%;
+    --input: 264 25% 18%;
+    --ring: 270 70% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 264 40% 8%;
+    --sidebar-foreground: 60 10% 92%;
+    --sidebar-primary: 270 70% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 264 30% 16%;
+    --sidebar-accent-foreground: 60 10% 92%;
+    --sidebar-border: 264 25% 18%;
+    --sidebar-ring: 270 70% 55%;
+
+    --gradient-purple: linear-gradient(135deg, hsl(270 70% 55%), hsl(280 80% 40%));
+    --gradient-gold: linear-gradient(135deg, hsl(45 95% 55%), hsl(35 90% 45%));
+    --gradient-hero: linear-gradient(135deg, hsl(264 45% 6%) 0%, hsl(270 50% 12%) 50%, hsl(264 45% 6%) 100%);
+    --shadow-purple: 0 0 40px -10px hsl(270 70% 55% / 0.5);
+    --shadow-gold: 0 0 40px -10px hsl(45 95% 55% / 0.4);
+    --glow-purple: 0 0 20px hsl(270 70% 55% / 0.3);
+    --glow-gold: 0 0 20px hsl(45 95% 55% / 0.3);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .text-gradient-purple {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(270 70% 65%), hsl(290 80% 50%));
+  }
+
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(45 95% 60%), hsl(35 90% 50%));
+  }
+
+  .glass-card {
+    @apply bg-card/50 backdrop-blur-xl border border-border/50 rounded-xl;
+  }
+
+  .glow-purple {
+    box-shadow: var(--glow-purple);
+  }
+
+  .glow-gold {
+    box-shadow: var(--glow-gold);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-purple);
+  }
+}
