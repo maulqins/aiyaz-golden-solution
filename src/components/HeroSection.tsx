@@ -75,7 +75,7 @@ const HeroSection = () => {
             }
             className="px-8 py-3 rounded-lg font-semibold border border-purple-500/50 text-purple-300 hover:bg-purple-500/10 transition-all"
           >
-            Pelajari Pendekatan Kami
+            Layanan Utama Kami
           </button>
         </motion.div>
       </div>
