@@ -2,10 +2,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { useNavigate } from "react-router-dom"; // ✅ TAMBAH INI
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const navigate = useNavigate(); // ✅ TAMBAH INI
 
   const [form, setForm] = useState({
     name: "",
@@ -51,13 +53,13 @@ const ContactSection = () => {
       message: "",
     });
 
-    window.location.href = `/chat?email=${email}`;
+    // ✅ GANTI INI
+    navigate(`/chat?email=${email}`);
   };
 
   return (
     <section id="contact" className="py-24 relative" ref={ref}>
       <div className="container mx-auto px-6">
-
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -74,7 +76,6 @@ const ContactSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -110,7 +111,6 @@ const ContactSection = () => {
             className="glass-card p-8 space-y-5"
             onSubmit={handleSubmit}
           >
-
             <input
               type="text"
               name="name"
@@ -147,7 +147,6 @@ const ContactSection = () => {
             >
               Kirim Pesan
             </button>
-
           </motion.form>
         </div>
       </div>
