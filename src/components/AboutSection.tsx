@@ -24,7 +24,7 @@ const values = [
     icon: Award, 
     title: "Nilai Kami", 
     desc: [
-      "Integritas, inovasi, dan kolaborasi menjadi fondasi dalam setiap proyek yang kami jalankan."
+      "Integritas, inovasi, kolaborasi dan komitmen menjadi fondasi dalam setiap proyek yang kami jalankan dan membangun hubungan jangka panjang dengan setiap client."
     ]
   },
 ];
