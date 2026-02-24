@@ -9,12 +9,6 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: "smooth" });
-    setIsOpen(false);
-  };
-
   const sectionMap: Record<string, string> = {
     Beranda: "hero",
     Tentang: "about",
@@ -22,13 +16,36 @@ const Navbar = () => {
     Kontak: "contact",
   };
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+
+    const navbarHeight = 80; 
+    const elementPosition =
+      element.getBoundingClientRect().top + window.scrollY;
+
+    window.scrollTo({
+      top: elementPosition - navbarHeight,
+      behavior: "smooth",
+    });
+  };
+
   const handleClick = (item: string) => {
     if (item === "Obrolan") {
-      navigate("/chat"); // React Router
+      navigate("/chat");
       setIsOpen(false);
-    } else {
-      scrollTo(sectionMap[item]);
+      return;
     }
+
+    const targetId = sectionMap[item];
+
+    setIsOpen(false);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollToSection(targetId);
+      });
+    });
   };
 
   return (
@@ -40,7 +57,7 @@ const Navbar = () => {
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <button
-          onClick={() => scrollTo("hero")}
+          onClick={() => handleClick("Beranda")}
           className="text-2xl font-heading font-bold text-gradient-purple"
         >
           AIYAZ<span className="text-accent">.</span>
@@ -76,7 +93,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-t border-border/30 glass-card"
+            className="md:hidden border-t border-border/30 glass-card overflow-hidden"
           >
             {navItems.map((item) => (
               <button

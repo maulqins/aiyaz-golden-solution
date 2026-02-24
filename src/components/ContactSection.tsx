@@ -2,12 +2,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { useNavigate } from "react-router-dom"; // ✅ TAMBAH INI
+import { useNavigate } from "react-router-dom"; 
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const navigate = useNavigate(); // ✅ TAMBAH INI
+  const navigate = useNavigate(); 
 
   const [form, setForm] = useState({
     name: "",
@@ -53,7 +53,6 @@ const ContactSection = () => {
       message: "",
     });
 
-    // ✅ GANTI INI
     navigate(`/chat?email=${email}`);
   };
 
