@@ -56,14 +56,21 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 glass-card border-b border-border/30"
     >
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
-        <button
-          onClick={() => handleClick("Beranda")}
-          className="text-2xl font-heading font-bold text-gradient-purple"
-        >
-          AIYAZ<span className="text-accent">.</span>
-        </button>
+      <button
+        onClick={() => handleClick("Beranda")}
+         className="flex items-center gap-2 group"
+      >
+      <img
+        src="/logo-mini.png"
+        alt="Aiyaz Logo"
+        className="h-7 w-7 object-contain transition-transform duration-300 group-hover:scale-110"
+      />
 
-        {/* Desktop */}
+  <span className="text-2xl font-heading font-bold text-gradient-purple">
+    AIYAZ<span className="text-accent">.</span>
+  </span>
+</button>
+
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <button
@@ -77,7 +84,6 @@ const Navbar = () => {
           ))}
         </div>
 
-        {/* Mobile Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="md:hidden text-foreground"
@@ -86,7 +92,6 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

@@ -14,7 +14,6 @@ const HeroSection = () => {
       </div>
 
       <div className="container mx-auto px-6 text-center">
-        {/* Small Tagline */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -25,7 +24,6 @@ const HeroSection = () => {
           </span>
         </motion.div>
 
-        {/* Main Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -39,7 +37,6 @@ const HeroSection = () => {
           </span>
         </motion.h1>
 
-        {/* Subheadline */}
         <motion.p
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +46,6 @@ const HeroSection = () => {
           Kami adalah mitra transformasi hospitality berbasis insight dan pengalaman tamu nyata.
         </motion.p>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,7 +76,6 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
       <div className="absolute bottom-8 inset-x-0 flex justify-center">
         <motion.div
           animate={{ y: [0, 10, 0] }}
