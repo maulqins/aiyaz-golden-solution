@@ -30,8 +30,6 @@ const values = [
 ];
 
 const stats = [
-  { value: "0", label: "Proyek Selesai" },
-  { value: "0", label: "Klien Aktif" },
   { value: "5", label: "tahun pengalaman" },
   { value: "2", label: "Tim Profesional" },
 ];
