@@ -88,7 +88,7 @@ const AboutSection = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="text-4xl md:text-5xl font-heading font-bold text-accent">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
