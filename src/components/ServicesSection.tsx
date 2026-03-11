@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Ghost } from "lucide-react";
+import { Ghost, CheckCircle } from "lucide-react";
 
 const ServicesSection = () => {
   const ref = useRef(null);
@@ -61,15 +61,54 @@ const ServicesSection = () => {
                 dan observasi objektif.
               </p>
 
-              <ul className="text-sm text-muted-foreground space-y-2 mb-8">
-                <li>✔ Guest Journey Mapping 
-                Kami memetakan perjalanan tamu dari reservasi hingga checkout.</li>
-                <li>✔ Anonymous Visit 
-                Tim evaluator datang sebagai tamu biasa untuk merasakan pengalaman nyata.</li>
-                <li>✔ Service & Operational Audit 
-                Kami menilai kualitas layanan, SOP, kebersihan, dan detail operasional.</li>
-                <li>✔ Insight Report 
-                Setiap evaluasi menghasilkan laporan berbasis data dan rekomendasi strategis.</li>
+              <ul className="space-y-4 mb-8">
+                <li className="flex gap-3">
+                <CheckCircle className="text-accent mt-1" size={18} />
+                  <div>
+                    <p className="font-medium text-foreground">
+                      Guest Journey Mapping
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Kami memetakan perjalanan tamu dari reservasi hingga checkout.
+                    </p>
+                  </div>
+                </li>
+
+                <li className="flex gap-3">
+                <CheckCircle className="text-accent mt-1" size={18} />
+                  <div>
+                    <p className="font-medium text-foreground">
+                      Anonymous Visit
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Tim evaluator datang sebagai tamu biasa untuk merasakan pengalaman nyata.
+                    </p>
+                  </div>
+                </li>
+
+                <li className="flex gap-3">
+                <CheckCircle className="text-accent mt-1" size={18} />
+                  <div>
+                    <p className="font-medium text-foreground">
+                      Service & Operational Audit
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Kami menilai kualitas layanan, SOP, kebersihan, dan detail operasional.
+                    </p>
+                  </div>
+                </li>
+
+                <li className="flex gap-3">
+                <CheckCircle className="text-accent mt-1" size={18} />
+                  <div>
+                    <p className="font-medium text-foreground">
+                      Insight Report
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      Setiap evaluasi menghasilkan laporan berbasis data dan rekomendasi strategis.
+                    </p>
+                  </div>
+                </li>
               </ul>
 
               <button
