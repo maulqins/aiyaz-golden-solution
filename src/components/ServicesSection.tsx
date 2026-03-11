@@ -62,10 +62,10 @@ const ServicesSection = () => {
               </p>
 
               <ul className="text-sm text-muted-foreground space-y-2 mb-8">
-                <li>✔ Evaluasi layanan & SOP</li>
-                <li>✔ Analisis pengalaman pelanggan end-to-end</li>
-                <li>✔ Identifikasi area peningkatan</li>
-                <li>✔ Rekomendasi strategis berbasis fakta lapangan</li>
+                <li>✔ Guest Journey Mapping Kami memetakan perjalanan tamu dari reservasi hingga checkout.</li>
+                <li>✔ Anonymous Visit Tim evaluator datang sebagai tamu biasa untuk merasakan pengalaman nyata.</li>
+                <li>✔ Service & Operational Audit Kami menilai kualitas layanan, SOP, kebersihan, dan detail operasional.</li>
+                <li>✔ Insight Report Setiap evaluasi menghasilkan laporan berbasis data dan rekomendasi strategis.</li>
               </ul>
 
               <button
