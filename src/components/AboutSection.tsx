@@ -31,7 +31,7 @@ const values = [
 
 const stats = [
   { value: "5", label: "tahun pengalaman" },
-  { value: "2", label: "Tim Profesional" },
+  { value: "5", label: "Tim Profesional" },
 ];
 
 const AboutSection = () => {
